@@ -1,0 +1,518 @@
+/* Configuración general */
+body {
+    /* Reemplaza o añade esto en tu regla 'body' */
+    background-color: #f4f7f5 !important; /* Pon aquí el verde clarito de fondo que desees */
+    background-image: none !important;    /* Eliminamos cualquier degradado previo que cause las franjas */
+    
+    /* ¡EL TRUCO CLAVE!: Obliga al fondo a cubrir el 100% de la pantalla aunque no haya contenido */
+    min-height: 100vh !important; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+/*
+header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #2d4a43, #436a5a);
+    color: #fcfaf2;
+    box-shadow: 0 4px 10px rgba(45, 74, 67, 0.15);    
+}
+*/
+
+header {
+    width: 100%;
+    height: 220px; /* Puedes subirlo o bajarlo según el protagonismo que quieras darle */
+    
+    /* Reemplaza la URL por la de la imagen o descárgala en tu carpeta del proyecto */
+    background-image: url('');
+    
+    background-size: cover;        /* Hace que la imagen cubra todo el espacio sin deformarse */
+    background-position: center;   /* Centra las líneas más interesantes en el medio */
+    background-repeat: no-repeat;
+    
+    /* Esto centra automáticamente el título de tu web en el medio del encabezado */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* Estilo del texto del título de tu página (si lo tienes) */
+    color: #2d4a43; /* El mismo verde oscuro elegante de tus tarjetas */
+    font-family: Arial, sans-serif;
+}
+
+header h1 { margin: 0; font-size: 2.5rem; }
+header p { margin: 0.5rem 0 0 0; opacity: 0.9; }
+
+/* CONTENEDOR: Forzado a un máximo de 2 columnas por fila */
+.grid-viajes {
+    display: grid;
+    /* Indicamos que queremos exactamente 2 columnas del mismo tamaño (1fr cada una) */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; /* Separación entre tarjetas */
+    padding: 2rem;
+    max-width: 1000px; /* Estrechamos un poco el contenedor para que las 2 tarjetas no se estiren demasiado */
+    margin: 0 auto;
+}
+
+/* LA TARJETA: Más baja (140px) y compacta */
+.tarjeta-viaje {
+    position: relative; /* <--- Esto es nuevo y obligatorio */
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: row; 
+    height: 140px;
+}
+
+/* LA ETIQUETA DEL AÑO: Estilo flotante y llamativo */
+/*.etiqueta-ano {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    color: white; /* El texto se mantiene blanco siempre para que contraste bien */
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    z-index: 10;
+}*/
+
+/* ETIQUETA DEL AÑO: Ubicada abajo a la derecha, grande y súper clara */
+.etiqueta-ano {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    font-size: 1.1rem !important; 
+    font-weight: 900 !important;
+    font-family: Arial, sans-serif !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+    
+    padding: 5px 14px !important; 
+    border-radius: 20px !important; /* Esquinas redondeadas estilo píldora */
+    text-align: center !important;
+    
+    width: auto !important;
+    min-width: 65px !important;
+    white-space: nowrap !important;
+}
+/* Efecto al pasar el ratón */
+.tarjeta-viaje:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.tarjeta-viaje img {
+    display: flex !important;
+    width: 100%;
+    height: 160px !important;    /* Candado de altura: todas van a medir exactamente esto */
+    max-height: 160px !important;
+    overflow: hidden;
+    object-fit: cover;
+    flex-shrink: 0;
+    overflow: hidden !important;
+    
+    /* 1. EFECTO SUAVE: Hace que el zoom tarde 0.4 segundos en completarse de forma fluida */
+    transition: transform 0.4s ease; 
+}
+
+/* 2. EL EFECTO ZOOM: Cuando pasamos el ratón por encima de la tarjeta, la imagen se agranda */
+.tarjeta-viaje:hover img {
+    transform: scale(1.15); /* Aumenta el tamaño de la foto un 15% */
+}
+
+/* CONTENIDO: Textos más pequeños para que quepan bien */
+.contenido-tarjeta {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important; /* Distribuye el contenido de arriba a abajo */
+    padding: 1rem;
+    height: 100%; /* O el alto que tengas configurado */
+    box-sizing: border-box;
+}
+
+.contenido-tarjeta h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2d4a43;
+    /* Quitamos el white-space: nowrap si lo tenías, para que si es muy largo baje de línea sin pisar al número */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contenido-tarjeta .fecha {
+    display: inline-block; /* Hace que el fondo se adapte al tamaño del texto */
+    background-color: #eef5f2; /* Fondo verde salvia muy clarito y limpio */
+    color: #2d4a43; /* Texto en el verde bosque oscuro del título para que contraste */
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px; /* Bordes ligeramente redondeados a juego con los botones */
+    margin: 0.5rem 0 0 0; /* Espaciado con el título */
+    font-weight: 500;
+}
+/* Botón de Drive más compacto */
+.btn-detalle {
+    align-self: flex-start;
+    background-color: #436a5a; /* Verde salvia/olivo (a juego con el degradado del header) */
+    color: white;
+    text-align: center;
+    padding: 0.4rem 0.9rem; /* Botón más pequeño */
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-detalle:hover {
+   background-color: #2d4a43;
+}
+
+/* RESPONSIVE: Para móviles muy pequeños se adapta a una sola columna */
+/*@media (max-width: 440px) {
+    .grid-viajes {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    .tarjeta-viaje {
+        height: 120px;
+    }
+    .tarjeta-viaje img {
+        width: 90px;
+    }
+    .contenido-tarjeta h3 {
+        font-size: 1rem;
+    }
+}*/
+
+/* RESPONSIVE: En pantallas medianas y pequeñas (como tablets y móviles), pasa a 1 sola columna */
+@media (max-width: 850px) {
+    .grid-viajes {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+}
+
+/* VENTANA SUPERPUESTA (MODAL) */
+.modal {
+    display: none; /* Oculta por defecto */
+    position: fixed;
+    z-index: 2000; /* Por encima de todo lo demás */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fondo negro semitransparente */
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out; /* Cambia el cursor para indicar que se cierra al clicar */
+}
+
+/* La imagen dentro de la ventana superpuesta */
+.contenido-modal {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    
+    /* Animación de apertura (Zoom suave) */
+    animation: zoomEfecto 0.3s ease;
+}
+
+@keyframes zoomEfecto {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Botón de cerrar (X) */
+.modal .cerrar {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Indicamos al usuario que la foto de la tarjeta se puede clicar */
+.tarjeta-viaje img {
+    cursor: zoom-in;
+}
+
+/* ESTILO DEL CONTADOR EN LA CABECERA */
+.contador-viajes {
+    margin-top: 1rem;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2); /* Un fondo blanco sutil y translúcido */
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#numero-viajes {
+    font-weight: bold;
+    color: #ffb300; /* Resalta el número en un color amarillo dorado */
+    font-size: 1.1rem;
+}
+
+/* BARRA DE FILTROS Y CONTADOR */
+.barra-filtros {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Una línea divisoria fina muy elegante */
+    font-size: 0.95rem;
+}
+/* Redefinimos el margen del contador para que se alinee bien en la barra */
+.contador-viajes {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Selector del Año */
+.filtro-izquierdo {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.filtro-izquierdo select {
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #2d4a43; /* Tu verde oscuro insignia */
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+/* Cambia el color de las opciones dentro del desplegable para que se lean bien */
+.filtro-izquierdo select option {
+    background-color: #222; 
+    color: #fff;
+}
+
+/* Ajuste para que el buscador y el selector respiren bien en la barra */
+.filtro-izquierdo input::placeholder {
+    color: #88a096; /* Un color verde clarito sutil para el texto de ayuda */
+    font-weight: normal;
+}
+
+/* Opcional: un pequeño efecto visual cuando haces clic en el buscador */
+.filtro-izquierdo input:focus {
+    border-color: #2d4a43 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+/* NUEVO ESTILO DEL NÚMERO: A juego con el año */
+.etiqueta-numero {
+    display: inline-block !important;
+    position: static !important;
+    background: none !important;
+    color: #7d7265; /* Color sutil y fino */
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap !important; /* El número nunca debe romperse */
+}
+/* Contenedor horizontal para que año y número vayan de la mano */
+.bloque-etiquetas {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap; /* Por si el espacio es muy pequeño, que bajen sin romperse */
+}
+/* Contenedor inferior para alinear botón (izquierda) y año (derecha) */
+.fila-botonera {
+    display: flex !important;
+    justify-content: space-between !important; 
+    align-items: center !important; 
+    width: 100% !important;
+    margin-top: 1rem !important; /* Cambiamos 'auto' por un margen fijo seguro */
+}
+/* Contenedor para alinear título (izquierda) y número (derecha) en la parte superior */
+.fila-superior-tarjeta {
+    display: flex;
+    justify-content: space-between; /* Empuja el título a la izquierda y el número a la derecha */
+    align-items: baseline; /* Alinea los textos por su base tipográfica para que quede perfecto */
+    gap: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+/* Contenedor principal del encabezado */
+.header-carrusel {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Subimos de 250px a 300px para dar espacio */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+/* Espacio donde viven las imágenes */
+.carrusel-slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Estilo individual de cada foto de fondo */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Efecto de desvanecimiento suave */
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; 
+}
+
+/* Cuando la slide tiene la clase 'activa', se muestra */
+.slide.activa {
+    opacity: 1;
+}
+
+/* Capa de texto y títulos por encima de las imágenes */
+.contenido-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    background: rgba(0, 0, 0, 0.35); /* Un pelín más oscuro para que el selector se lea perfecto */
+    padding: 1.5rem 2.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(4px);
+    width: 80%; /* Le damos un ancho relativo para que los filtros se separen */
+    max-width: 700px; /* Evita que se estire demasiado en pantallas gigantes */
+    box-sizing: border-box;
+}
+
+.contenido-header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.contenido-header p {
+    margin: 5px 0 0 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+/* BOTÓN VOLVER ARRIBA */
+.btn-scroll-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(45, 74, 67, 0.85); /* Un verde oscuro similar a tus botones con transparencia */
+    color: #ffffff;
+    border: none;
+    border-radius: 50%; /* Lo hace completamente redondo */
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000; /* Asegura que flote por encima de las tarjetas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    
+    /* Efecto inicial: Oculto y transparente */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto al pasar el ratón por encima */
+.btn-scroll-top:hover {
+    background-color: rgba(45, 74, 67, 1);
+    transform: scale(1.1); /* Crece un poquito */
+}
+
+/* Clase que añadiremos con JS para mostrarlo */
+.btn-scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+/* Limitar el tamaño de las imágenes dentro de los globos del mapa */
+.popup-contenido img {
+    width: 100%;
+    max-width: 200px;  /* Evita que la imagen se estire demasiado hacia los lados */
+    height: 120px;     /* Altura fija ideal para el globo */
+    object-fit: cover; /* Recorta la imagen con elegancia para que no se deforme */
+    border-radius: 6px;/* Esquinas suavizadas para que haga juego con tu web */
+    margin-bottom: 8px;
+}
+
+/* Forzar un ancho máximo limpio al contenedor del propio globo */
+.leaflet-popup-content {
+    max-width: 200px !important;
+}
+
+/* Cambiar el color de los pines individuales del mapa a un rojo/naranja llamativo */
+.leaflet-marker-icon {
+    filter: hue-rotate(140deg) saturate(250%) brightness(90%);
+}
+/* Cambiar el color de los círculos de agrupación (Clusters) */
+
+/* Grupo pequeño (menos de 10 viajes) */
+.marker-cluster-small {
+    background-color: rgba(255, 99, 71, 0.6) !important; /* Rojo coral translúcido */
+}
+.marker-cluster-small div {
+    background-color: rgba(255, 69, 0, 0.85) !important; /* Naranja rojizo brillante */
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Grupo mediano (entre 10 y 100 viajes) */
+.marker-cluster-medium {
+    background-color: rgba(255, 69, 0, 0.6) !important;
+}
+.marker-cluster-medium div {
+    background-color: rgba(220, 20, 60, 0.9) !important; /* Carmesí intenso */
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Bordes y animaciones para que resalten al pasar el ratón */
+.marker-cluster {
+    background-clip: padding-box;
+    border-radius: 20px;
+}
+.marker-cluster div {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 15px;
+    font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
